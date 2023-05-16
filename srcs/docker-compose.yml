@@ -1,0 +1,48 @@
+version: "3"
+services:
+  word:
+    build: requirements/wordpress
+    ports:
+      - 9000:80
+    depends_on:
+      - mariadb
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_ROOT_USER: ssadiki
+      WORDPRESS_DB_ROOT_PASSWORD: password
+      WORDPRESS_DB_USER: guest
+      WORDPRESS_DB_PASSWORD: password2
+      WORDPRESS_TABLE_PREFIX: wp_
+      volumes:
+        - /home/ssadiki/data/wordpress:/wordpress
+      networks:
+        - inception
+      restart: always
+  mariadb:
+    build: requirements/mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_USER: ssadiki
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: guest
+      MYSQL_PASSWORD: password2
+    volumes:
+      - /home/ssadiki/data/mysql:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
+  nginx:
+    build: requirements/nginx
+    ports:
+      - 443:443
+    volumes:
+      - /home/ssadiki/data/wordpress:/wordpress
+    networks:
+      - inception
+    restart: always
+
+networks:
+  inception:
