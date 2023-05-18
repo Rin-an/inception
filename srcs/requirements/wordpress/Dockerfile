@@ -6,9 +6,9 @@ RUN apk update && apk add php7 \
                         php7-fpm \
                         php7-json \
                         openrc
-COPY config.sh config.sh
-COPY www.conf /etc/php7/php-fpm.d
+COPY conf/config.sh config.sh
+COPY conf/www.conf /etc/php7/php-fpm.d
 EXPOSE 9000
-RUN sh config.sh
-COPY wp-config.php /wordpress
-CMD ["php-fpm7","-F"]
+#COPY conf/wp-config.php /wordpress
+#CMD ["php-fpm7","-F"]
+CMD ["sh", "config.sh"]
