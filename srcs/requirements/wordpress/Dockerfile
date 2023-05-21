@@ -1,5 +1,11 @@
 FROM alpine:3.14
 RUN apk update && apk add php7 \
+			php7-cli \
+			php7-opcache \
+			php7-mbstring \
+			php7-xml \
+			php7-gd \
+			php7-curl \
                         php7-phar \
                         php7-mysqli \
                         php7-iconv \

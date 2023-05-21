@@ -8,7 +8,7 @@ services:
       - mariadb
     container_name: wordpress
     environment:
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: mariadb:3306
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: ssadiki
       WORDPRESS_DB_PASSWORD: password
@@ -17,11 +17,18 @@ services:
       - wordpress:/wordpress
     networks:
       - inception
+      - backend
     restart: always
   mariadb:
     build: requirements/mariadb
+    container_name: mariadb
     ports:
       - 3306:3306
+    ressources:
+      requests:
+        memory: "256Mi"
+      limits:
+        memory: "900Mi"
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: ssadiki
@@ -29,7 +36,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     networks:
-      - inception
+      - backend
     restart: always
   nginx:
     build: requirements/nginx
@@ -39,6 +46,7 @@ services:
       - wordpress:/wordpress
     networks:
       - inception
+      - backend
     depends_on:
       - wordpress
     restart: always
@@ -46,6 +54,7 @@ services:
 networks:
   inception:
     driver: bridge
+  backend:
 volumes:
   wordpress:
   mysql:
