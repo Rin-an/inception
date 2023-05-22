@@ -6,47 +6,36 @@ services:
       - 9000:9000
     depends_on:
       - mariadb
+    image: wordpress
     container_name: wordpress
-    environment:
-      WORDPRESS_DB_HOST: mariadb:3306
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: ssadiki
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_TABLE_PREFIX: wp_
+    env_file: .env
     volumes:
       - wordpress:/wordpress
     networks:
       - inception
-      - backend
     restart: always
   mariadb:
     build: requirements/mariadb
+    image: mariadb
     container_name: mariadb
     ports:
       - 3306:3306
-    ressources:
-      requests:
-        memory: "256Mi"
-      limits:
-        memory: "900Mi"
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: ssadiki
-      MYSQL_PASSWORD: password
+    env_file: .env
     volumes:
       - mysql:/var/lib/mysql
     networks:
-      - backend
+      - inception
     restart: always
   nginx:
     build: requirements/nginx
+    image: nginx
+    container_name: nginx
     ports:
       - 443:443
     volumes:
       - wordpress:/wordpress
     networks:
       - inception
-      - backend
     depends_on:
       - wordpress
     restart: always
@@ -54,7 +43,6 @@ services:
 networks:
   inception:
     driver: bridge
-  backend:
 volumes:
   wordpress:
   mysql:

@@ -12,6 +12,6 @@ wp config create --dbname=$WORDPRESS_DB_NAME  --dbuser=$WORDPRESS_DB_USER --dbpa
 	--dbhost=$WORDPRESS_DB_HOST \
                   --skip-check \
                   --path=/wordpress/
-#wp core install --url="http://example.com" --title="Blog Title" --admin_user="adminuser" --admin_password="password" --admin_email="email@domain.com"
-#rc-service php-fpm7 start
+wp core install --url="https://example.com" --title="Inception" --admin_user=$WORDPRESS_DB_USER --admin_password=$WORDPRESS_DB_PASSWORD --admin_email="ssadiki@gmail.com"
+wp user create "$WORDPRESS_DB_ROOT_USER" "root@gmail.com" --role=administrator --user_pass="$WORDPRESS_DB_ROOT_PASSWORD" --path=/wordpress
 exec /usr/sbin/php-fpm7 --nodaemonize

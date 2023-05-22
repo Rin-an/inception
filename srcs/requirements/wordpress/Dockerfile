@@ -15,6 +15,5 @@ RUN apk update && apk add php7 \
 COPY conf/config.sh config.sh
 COPY conf/www.conf /etc/php7/php-fpm.d
 EXPOSE 9000
-#COPY conf/wp-config.php /wordpress
 #CMD ["php-fpm7","-F"]
 CMD ["sh", "config.sh"]
