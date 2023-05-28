@@ -11,9 +11,9 @@ RUN apk update && apk add php7 \
                         php7-iconv \
                         php7-fpm \
                         php7-json \
+						lftp \
                         openrc
 COPY conf/config.sh config.sh
 COPY conf/www.conf /etc/php7/php-fpm.d
 EXPOSE 9000
-#CMD ["php-fpm7","-F"]
 CMD ["sh", "config.sh"]

@@ -4,6 +4,6 @@ up:
 fclean:
 	docker compose -f srcs/docker-compose.yml down
 	docker compose -f srcs/docker-compose.yml rm;
-	docker system prune -a;
+	docker system prune -af --volumes;
 re : fclean up
 .PHONY: all up fclean

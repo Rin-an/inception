@@ -6,6 +6,7 @@ services:
       - 9000:9000
     depends_on:
       - mariadb
+        #      - redis
     image: wordpress
     container_name: wordpress
     env_file: .env
@@ -37,9 +38,39 @@ services:
     networks:
       - inception
     depends_on:
-      - wordpress
+       - wordpress
     restart: always
-
+  redis:
+    build: requirements/bonus/redis
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - inception
+    restart: always
+  ftp:
+    build: requirements/bonus/ftp
+    image: ftp
+    container_name: ftp
+    env_file: .env
+    ports:
+      - "21:21"
+      - "40000:40000"
+    volumes:
+      - wordpress:/home/$FTP_USER/wordpress
+    networks:
+      - inception
+    restart: always
+  adminer:
+    build: requirements/bonus/adminer
+    image: adminer
+    container_name: adminer
+    ports:
+      - 8000:8000
+    networks:
+      - inception
+    restart: always
 networks:
   inception:
     driver: bridge
