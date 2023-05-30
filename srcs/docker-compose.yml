@@ -62,12 +62,30 @@ services:
     networks:
       - inception
     restart: always
+  hugo:
+    build: requirements/bonus/hugo
+    image: hugo
+    container_name: hugo
+    #ports:
+    #  - 1313:1313
+    networks:
+      - inception
+    restart: always
   adminer:
     build: requirements/bonus/adminer
     image: adminer
     container_name: adminer
     ports:
       - 8000:8000
+    networks:
+      - inception
+    restart: always
+  website:
+    build: requirements/bonus/website
+    image: website
+    container_name: website
+    ports:
+      - 1313:1313
     networks:
       - inception
     restart: always
