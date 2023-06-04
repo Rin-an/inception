@@ -1,4 +1,4 @@
 srcs/.env
 .DS_Store
 */.DS_Store
-*/.dockerignore
+.gitignore
