@@ -1,0 +1,16 @@
+title = "Random Web Page"
+theme = "m10c"
+paginate = 8
+canonnifyURLs = true
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about"
+    weight = 2
